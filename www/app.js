@@ -292,3 +292,7 @@ if (kelvinSlider) {
 
     updateLightColor(kelvinSlider.value || 4000);
 }
+let selectValue = document.querySelector('ion-select');
+selectValue.addEventListener('ionChange', (e) => {
+    console.log(`${e.detail.value}`);
+  });

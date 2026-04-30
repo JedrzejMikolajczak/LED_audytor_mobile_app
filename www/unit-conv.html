@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Audytor LED - Galeria</title>
+    <title>Audytor LED - Unit Converter</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
     <link rel="stylesheet" href="style.css">
@@ -42,7 +42,7 @@
                     <ion-buttons slot="start">
                         <ion-menu-button></ion-menu-button>
                     </ion-buttons>
-                    <ion-title>Galeria</ion-title>
+                    <ion-title>Unit Converter</ion-title>
                     <ion-buttons slot="end">
                         <ion-button href="index.html">
                             <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -51,9 +51,38 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
-              <h2>Twoje Audyty LED</h2>
-    
-              <div id="gallery-container" class="gallery-grid"></div>
+                <div class="unit-content">
+                    <ion-item lines="none">
+                      <ion-select class="select" label="Convert" label-placement="fixed" placeholder="Units">
+                        <ion-select-option value="1">W -> Lm</ion-select-option>
+                        <ion-select-option value="2">Lm -> W</ion-select-option>
+                        <ion-select-option value="3">Lm & m2 -> Lx</ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                    <div class="select1">
+                        <ion-list>
+                          <ion-item lines="none">
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col size="6">
+                                        <ion-item lines="none">
+                                            <ion-input class="ion-text-center" value="hi@ionic.io"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                    <ion-col size="6">
+                                        <ion-item lines="none">
+                                            <ion-input class="ion-text-center" value="hi@ionic.io"></ion-input>
+                                        </ion-item>
+                                    </ion-col>
+                                
+                                </ion-row>
+                            </ion-grid>
+                          </ion-item>
+                        </ion-list>
+                    </div>
+                    <ion-button id="calculat-unit-btn" slot="secondary">Calculate</ion-button>
+                </div>
+                
             </ion-content>
         </div>
 

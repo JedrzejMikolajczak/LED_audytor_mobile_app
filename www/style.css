@@ -247,3 +247,33 @@ ion-menu-button {
     margin: 10px 0;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
+.unit-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+ion-select{
+  --background: rgb(233, 233, 233);
+  --border-radius: 5px;
+  --padding-top: 15px;
+  --padding-bottom: 15px;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+.select{
+  margin: 40px;
+  font-size: 20px;
+}
+ion-button{
+  --padding-bottom: 10px;
+  --padding-end: 15px;
+  --padding-start: 15px;
+  --padding-top:10px;
+}
+.select1{
+  margin: 35px;
+  display: flex;
+  gap: 40px;
+}
