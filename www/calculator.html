@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Kalkulator LED</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <ion-app>
+        <ion-menu content-id="main-content">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-title>Menu Audytora</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-item button href="index.html"><ion-icon name="home" slot="start"></ion-icon>Start</ion-item>
+                    <ion-item button href="calculator.html"><ion-icon name="calculator" slot="start"></ion-icon>Kalkulator LED</ion-item>
+                    <ion-item button href="camera.html"><ion-icon name="camera" slot="start"></ion-icon>Aparat (Audyt)</ion-item>
+                    <ion-item button href="gallery.html"><ion-icon name="images" slot="start"></ion-icon>Galeria</ion-item>
+                    <ion-item button href="game.html"><ion-icon name="game-controller" slot="start"></ion-icon>Mini-gra</ion-item>
+                    <ion-item button href="led_simulator.html"><ion-icon name="bulb" slot="start"></ion-icon>Symulator Barwy Swiatla</ion-item>
+                    <ion-item button href="#"><ion-icon name="apps" slot="start"></ion-icon>Kalkulator Jednostek</ion-item>
+                    <ion-item button href="#"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
+                    <ion-item button href="about.html"><ion-icon name="person" slot="start"></ion-icon>O autorze</ion-item>
+                    <ion-item button href="#"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <div class="ion-page" id="main-content">
+            
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Kalkulator</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button href="index.html">
+                            <ion-icon slot="icon-only" name="home"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+
+            <ion-content class="ion-padding">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Parametry instalacji</ion-card-title>
+                        <ion-card-subtitle>Wprowadź dane, aby obliczyć oszczędności</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list>
+                            <ion-item>
+                                <ion-input id="oldW" label="Stara moc (W)" label-placement="stacked" type="number" placeholder="np. 60"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-input id="newW" label="Nowa moc LED (W)" label-placement="stacked" type="number" placeholder="np. 9"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-input id="hours" label="Czas świecenia (h/dzień)" label-placement="stacked" type="number" placeholder="np. 5"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-input id="price" label="Cena prądu (PLN/kWh)" label-placement="stacked" type="number" placeholder="np. 1.15"></ion-input>
+                            </ion-item>
+                        </ion-list>
+                        <ion-button expand="block" class="ion-margin-top" onclick="calculateROI()">Oblicz oszczędności</ion-button>
+                    </ion-card-content>
+                </ion-card>
+
+                <div id="results" class="ion-padding" style="display:none; background: #f4f5f8; border-radius: 10px; margin-top: 20px;">
+                    <h3 style="color: var(--ion-color-primary); margin-top: 0;">Twoje wyniki:</h3>
+                    <p id="saveText" style="font-size: 16px; line-height: 1.5;"></p>
+                    
+                    <div style="width: 100%; max-width: 400px; margin: 0 auto; padding-top: 15px;">
+                        <canvas id="chartCanvas"></canvas>
+                    </div>
+                </div>
+            </ion-content>
+        </div>
+    </ion-app>
+
+    <script src="app.js">
+       
+    </script>
+</body>
+</html>

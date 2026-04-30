@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Audytor LED - Start</title>
+ 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link rel="stylesheet" href="style.css">
+ 
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+</head>
+<body>
+    <ion-app>
+    <ion-menu content-id="main-content" type="overlay">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-title>Menu Audytora</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <ion-item button href="index.html"><ion-icon name="home" slot="start"></ion-icon>Start</ion-item>
+                <ion-item button href="calculator.html"><ion-icon name="calculator" slot="start"></ion-icon>Kalkulator LED</ion-item>
+                <ion-item button href="camera.html"><ion-icon name="camera" slot="start"></ion-icon>Aparat (Audyt)</ion-item>
+                <ion-item button href="gallery.html"><ion-icon name="images" slot="start"></ion-icon>Galeria</ion-item>
+                <ion-item button href="game.html"><ion-icon name="game-controller" slot="start"></ion-icon>Mini-gra</ion-item>
+                <ion-item button href="led_simulator.html"><ion-icon name="bulb" slot="start"></ion-icon>Symulator Barwy Swiatla</ion-item>
+                <ion-item button href="#"><ion-icon name="apps" slot="start"></ion-icon>Kalkulator Jednostek</ion-item>
+                <ion-item button href="#"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
+                <ion-item button href="about.html"><ion-icon name="person" slot="start"></ion-icon>O autorze</ion-item>
+                <ion-item button href="#"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+
+    <div class="ion-page" id="main-content">
+        <ion-header>
+            <ion-toolbar color="primary">
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>Audytor LED</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding" style="display: flex; align-items: center;">
+    
+    <h1 style="color: var(--ion-color-primary); margin-top: 50px; text-align: center;">Witaj w Audytorze!</h1>
+    <p style="color: #666; margin-bottom: 50px;text-align: center;">Zoptymalizuj zużycie energii i zacznij oszczędzać.</p>
+
+    <canvas id="startCanvas" width="300" height="250"></canvas>
+
+    <ion-button expand="block" href="calculator.html" class="ion-margin-top" style="margin-top: 70px;">
+        <ion-icon name="calculator" slot="start"></ion-icon>
+        Rozpocznij Audyt
+    </ion-button>
+
+</ion-content>
+    </div>
+</ion-app>
+ 
+    <script>
+        window.onload = () => {
+            const canvas = document.getElementById('startCanvas');
+            const ctx = canvas.getContext('2d');
+            let time = 0;
+ 
+            function drawAnimation() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                const pulse = (Math.sin(time) + 1) / 2;
+                
+                ctx.shadowBlur = 15 + (pulse * 25);
+                ctx.shadowColor = 'rgba(255, 204, 0, 0.8)';
+                
+                ctx.beginPath();
+                ctx.arc(150, 100, 45, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 215, 0, ${0.6 + pulse * 0.4})`;
+                ctx.fill();
+                
+                ctx.shadowBlur = 0;
+ 
+                ctx.beginPath();
+                ctx.moveTo(140, 120);
+                ctx.lineTo(145, 90);
+                ctx.lineTo(155, 90);
+                ctx.lineTo(160, 120);
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+ 
+                ctx.fillStyle = '#b0bec5';
+                ctx.fillRect(132, 138, 36, 30);
+                
+                ctx.fillStyle = '#78909c';
+                ctx.fillRect(132, 142, 36, 4);
+                ctx.fillRect(132, 150, 36, 4);
+                ctx.fillRect(132, 158, 36, 4);
+                
+                ctx.beginPath();
+                ctx.arc(150, 168, 12, 0, Math.PI);
+                ctx.fillStyle = '#455a64';
+                ctx.fill();
+ 
+                ctx.strokeStyle = `rgba(255, 204, 0, ${pulse})`;
+                ctx.lineWidth = 3;
+                ctx.lineCap = 'round';
+                
+                for(let i = 0; i < 7; i++) {
+                    let angle = Math.PI + (i * Math.PI) / 6;
+                    
+                    let startX = 150 + Math.cos(angle) * 60;
+                    let startY = 100 + Math.sin(angle) * 60;
+                    let endX = 150 + Math.cos(angle) * (75 + pulse * 15);
+                    let endY = 100 + Math.sin(angle) * (75 + pulse * 15);
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(startX, startY);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                }
+                time += 0.06;
+              
+                requestAnimationFrame(drawAnimation);
+            }
+            drawAnimation();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Audytor LED - Galeria</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+</head>
+<body>
+    <ion-app>
+
+        <ion-menu content-id="main-content" type="overlay">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-title>Menu Audytora</ion-title>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-item button href="index.html"><ion-icon name="home" slot="start"></ion-icon>Start</ion-item>
+                    <ion-item button href="calculator.html"><ion-icon name="calculator" slot="start"></ion-icon>Kalkulator LED</ion-item>
+                    <ion-item button href="camera.html"><ion-icon name="camera" slot="start"></ion-icon>Aparat (Audyt)</ion-item>
+                    <ion-item button href="gallery.html"><ion-icon name="images" slot="start"></ion-icon>Galeria</ion-item>
+                    <ion-item button href="game.html"><ion-icon name="game-controller" slot="start"></ion-icon>Mini-gra</ion-item>
+                    <ion-item button href="led_simulator.html"><ion-icon name="bulb" slot="start"></ion-icon>Symulator Barwy Swiatla</ion-item>
+                    <ion-item button href="#"><ion-icon name="apps" slot="start"></ion-icon>Kalkulator Jednostek</ion-item>
+                    <ion-item button href="#"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
+                    <ion-item button href="about.html"><ion-icon name="person" slot="start"></ion-icon>O autorze</ion-item>
+                    <ion-item button href="#"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
+                </ion-list>
+            </ion-content>
+        </ion-menu>
+
+        <div class="ion-page" id="main-content">
+            <ion-header>
+                <ion-toolbar color="primary">
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>Galeria</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button href="index.html">
+                            <ion-icon slot="icon-only" name="home"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+              <h2>Twoje Audyty LED</h2>
+    
+              <div id="gallery-container" class="gallery-grid"></div>
+            </ion-content>
+        </div>
+
+    </ion-app>
+    <script src="app.js"></script>
+    <div id="image-modal" class="modal-hidden">
+    <span id="close-modal">&times;</span>
+    <img id="modal-image" src="">
+</div>
+</body>
+</html>
