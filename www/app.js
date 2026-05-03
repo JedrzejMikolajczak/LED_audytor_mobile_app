@@ -142,25 +142,23 @@ const options = [
 },
 ];
 
-const compareWithFn = (o1, o2) => {
-    return o1 && o2 ? o1.id === o2.id : o1 === o2;
-};
-
 const selectEl = document.querySelector('ion-select');
-selectEl.compareWith = compareWithFn;
-
-options.forEach((option, i) => {
+if (selectEl){
+    options.forEach((option, i) => {
     const selectOption = document.createElement('ion-select-option');
     selectOption.value = option;
     selectOption.textContent = option.name;
     selectEl.appendChild(selectOption);
 });  
+}
+
 const calcUI = document.getElementById("calc-ui");
 const calculateBtn = document.getElementById("calculat-unit-btn");
 const input1 = document.getElementById("input1-btn");
 const input2 = document.getElementById("input2-btn");
 const convOutput = document.getElementById("outputConv");
-selectEl.addEventListener('ionChange', () => {
+if (calculateBtn){
+    selectEl.addEventListener('ionChange', () => {
   calcUI.classList.remove("hidden");
   input1.value = "";
   input2.value = "";
@@ -180,7 +178,9 @@ selectEl.addEventListener('ionChange', () => {
           break;
   }
 });
-calculateBtn.addEventListener("click", () => {
+}
+if (calculateBtn) {
+    calculateBtn.addEventListener("click", () => {
   let val1 = parseFloat(input1.value);
   let val2 = parseFloat(input2.value);
   let res = 0;
@@ -198,7 +198,10 @@ calculateBtn.addEventListener("click", () => {
           convOutput.value = res.toFixed(2) + " Lx";
           break;
   }
-});}
+});
+}
+
+}
 function resetQuizButtonsClasslist() {
     document.querySelectorAll('[data-odpowiedz]').forEach(btn => {
         btn.classList.remove("poprawna");
@@ -361,7 +364,3 @@ if (kelvinSlider) {
 
     updateLightColor(kelvinSlider.value || 4000);
 }
-let selectValue = document.querySelector('ion-select');
-selectValue.addEventListener('ionChange', (e) => {
-    //console.log(`${e.detail.value}`);
-  });
