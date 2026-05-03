@@ -53,34 +53,45 @@
             <ion-content class="ion-padding">
                 <div class="unit-content">
                     <ion-item lines="none">
-                      <ion-select class="select" label="Convert" label-placement="fixed" placeholder="Units">
-                        <ion-select-option value="1">W -> Lm</ion-select-option>
-                        <ion-select-option value="2">Lm -> W</ion-select-option>
-                        <ion-select-option value="3">Lm & m2 -> Lx</ion-select-option>
+                      <ion-select class="select" id="a" label="Convert" label-placement="fixed" placeholder="Units">
                       </ion-select>
                     </ion-item>
-                    <div class="select1">
-                        <ion-list>
-                          <ion-item lines="none">
-                            <ion-grid>
-                                <ion-row>
-                                    <ion-col size="6">
-                                        <ion-item lines="none">
-                                            <ion-input class="ion-text-center" value="hi@ionic.io"></ion-input>
-                                        </ion-item>
-                                    </ion-col>
-                                    <ion-col size="6">
-                                        <ion-item lines="none">
-                                            <ion-input class="ion-text-center" value="hi@ionic.io"></ion-input>
-                                        </ion-item>
-                                    </ion-col>
-                                
-                                </ion-row>
-                            </ion-grid>
-                          </ion-item>
-                        </ion-list>
+                    <div class="calculator-ui hidden" id="calc-ui">
+                        <ion-grid>
+                            <ion-row class="ion-justify-content-center">
+                                <ion-col size="5">
+                                    <ion-item lines="full" style="box-shadow: 5px 5px 15px 5px #9d9d9d;">
+                                        <ion-input class="ion-text-center" id="input1-btn" placeholder="Wartość 1" value=""></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-item lines="full" style="box-shadow: 5px 5px 15px 5px #9d9d9d;">
+                                        <ion-input class="ion-text-center" id="input2-btn" placeholder="Wartość 2" value=""></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                            
+                            <ion-row class="ion-justify-content-center">
+                                <ion-col class="ion-text-center">
+                                    <ion-icon name="arrow-down-outline" style="font-size: 2.5rem; color: #3880ff; margin: 0px; margin-bottom: -10px;"></ion-icon>
+                                </ion-col>
+                            </ion-row>
+                            
+                            <ion-row class="ion-justify-content-center">
+                                <ion-col class="ion-text-center">
+                                    <ion-button id="calculat-unit-btn" style="margin-bottom: 15px;">Calculate</ion-button>
+                                </ion-col>
+                            </ion-row>
+                            
+                            <ion-row class="ion-justify-content-center">
+                                <ion-col size="10">
+                                    <ion-item lines="full" style="border: 0.5px solid black; border-radius: 15px;">
+                                        <ion-input id="outputConv" class="ion-text-center" placeholder="Wynik" readonly></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
                     </div>
-                    <ion-button id="calculat-unit-btn" slot="secondary">Calculate</ion-button>
                 </div>
                 
             </ion-content>

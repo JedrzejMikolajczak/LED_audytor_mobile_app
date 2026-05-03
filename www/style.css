@@ -272,8 +272,3 @@ ion-button{
   --padding-start: 15px;
   --padding-top:10px;
 }
-.select1{
-  margin: 35px;
-  display: flex;
-  gap: 40px;
-}

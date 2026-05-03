@@ -126,10 +126,79 @@ window.onload = () => {
             }
         });
     }
+// przeliczanie jednostek
+const options = [
+{
+    id: 1,
+    name: 'W -> Lm',
+},
+{
+    id: 2,
+    name: 'Lm -> W',
+},
+{
+    id: 3,
+    name: 'Lm & m2 -> Lx',
+},
+];
 
-    renderGallery();
+const compareWithFn = (o1, o2) => {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
 };
 
+const selectEl = document.querySelector('ion-select');
+selectEl.compareWith = compareWithFn;
+
+options.forEach((option, i) => {
+    const selectOption = document.createElement('ion-select-option');
+    selectOption.value = option;
+    selectOption.textContent = option.name;
+    selectEl.appendChild(selectOption);
+});  
+const calcUI = document.getElementById("calc-ui");
+const calculateBtn = document.getElementById("calculat-unit-btn");
+const input1 = document.getElementById("input1-btn");
+const input2 = document.getElementById("input2-btn");
+const convOutput = document.getElementById("outputConv");
+selectEl.addEventListener('ionChange', () => {
+  calcUI.classList.remove("hidden");
+  input1.value = "";
+  input2.value = "";
+  convOutput.value = "";
+  switch (selectEl.value.id) {
+      case 1:
+          input1.placeholder = "Wartość W";
+          input2.placeholder = "Skuteczność";
+          break;
+      case 2:
+          input1.placeholder = "Wartość Lm";
+          input2.placeholder = "Skuteczność";
+          break;
+      case 3:
+          input1.placeholder = "Wartość Lm";
+          input2.placeholder = "Wartość m2";
+          break;
+  }
+});
+calculateBtn.addEventListener("click", () => {
+  let val1 = parseFloat(input1.value);
+  let val2 = parseFloat(input2.value);
+  let res = 0;
+  switch (selectEl.value.id) {
+      case 1:
+          res = val1 * val2;
+          convOutput.value = res + " Lm";
+          break;
+      case 2:
+          res = val1 / val2;
+          convOutput.value = res.toFixed(2) + " W";
+          break;
+      case 3: 
+          res = val1 / val2;
+          convOutput.value = res.toFixed(2) + " Lx";
+          break;
+  }
+});}
 function resetQuizButtonsClasslist() {
     document.querySelectorAll('[data-odpowiedz]').forEach(btn => {
         btn.classList.remove("poprawna");
@@ -294,5 +363,5 @@ if (kelvinSlider) {
 }
 let selectValue = document.querySelector('ion-select');
 selectValue.addEventListener('ionChange', (e) => {
-    console.log(`${e.detail.value}`);
+    //console.log(`${e.detail.value}`);
   });
