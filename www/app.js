@@ -92,24 +92,6 @@ window.onload = () => {
         document.getElementById('price').value = data.price;
     }
 
-    const input = document.getElementById("cameraInput");
-    if (input) {
-        input.addEventListener("change", function () {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const imageData = e.target.result;
-                    let arr = JSON.parse(localStorage.getItem("savedArrWithImages")) || [];
-                    arr.push(imageData);
-                    localStorage.setItem("savedArrWithImages", JSON.stringify(arr));
-                    renderGallery();
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    }
-
     const modal = document.getElementById("image-modal");
     const closeModal = document.getElementById("close-modal");
 
@@ -126,82 +108,85 @@ window.onload = () => {
             }
         });
     }
-// przeliczanie jednostek
-const options = [
-{
-    id: 1,
-    name: 'W -> Lm',
-},
-{
-    id: 2,
-    name: 'Lm -> W',
-},
-{
-    id: 3,
-    name: 'Lm & m2 -> Lx',
-},
-];
 
-const selectEl = document.querySelector('ion-select');
-if (selectEl){
-    options.forEach((option, i) => {
-    const selectOption = document.createElement('ion-select-option');
-    selectOption.value = option;
-    selectOption.textContent = option.name;
-    selectEl.appendChild(selectOption);
-});  
-}
+    // przeliczanie jednostek
+    const options = [
+    {
+        id: 1,
+        name: 'W -> Lm',
+    },
+    {
+        id: 2,
+        name: 'Lm -> W',
+    },
+    {
+        id: 3,
+        name: 'Lm & m2 -> Lx',
+    },
+    ];
 
-const calcUI = document.getElementById("calc-ui");
-const calculateBtn = document.getElementById("calculat-unit-btn");
-const input1 = document.getElementById("input1-btn");
-const input2 = document.getElementById("input2-btn");
-const convOutput = document.getElementById("outputConv");
-if (calculateBtn){
-    selectEl.addEventListener('ionChange', () => {
-  calcUI.classList.remove("hidden");
-  input1.value = "";
-  input2.value = "";
-  convOutput.value = "";
-  switch (selectEl.value.id) {
-      case 1:
-          input1.placeholder = "Wartość W";
-          input2.placeholder = "Skuteczność";
-          break;
-      case 2:
-          input1.placeholder = "Wartość Lm";
-          input2.placeholder = "Skuteczność";
-          break;
-      case 3:
-          input1.placeholder = "Wartość Lm";
-          input2.placeholder = "Wartość m2";
-          break;
-  }
-});
-}
-if (calculateBtn) {
-    calculateBtn.addEventListener("click", () => {
-  let val1 = parseFloat(input1.value);
-  let val2 = parseFloat(input2.value);
-  let res = 0;
-  switch (selectEl.value.id) {
-      case 1:
-          res = val1 * val2;
-          convOutput.value = res + " Lm";
-          break;
-      case 2:
-          res = val1 / val2;
-          convOutput.value = res.toFixed(2) + " W";
-          break;
-      case 3: 
-          res = val1 / val2;
-          convOutput.value = res.toFixed(2) + " Lx";
-          break;
-  }
-});
-}
+    const selectEl = document.querySelector('ion-select');
+    if (selectEl){
+        options.forEach((option, i) => {
+        const selectOption = document.createElement('ion-select-option');
+        selectOption.value = option;
+        selectOption.textContent = option.name;
+        selectEl.appendChild(selectOption);
+    });  
+    }
 
-}
+    const calcUI = document.getElementById("calc-ui");
+    const calculateBtn = document.getElementById("calculat-unit-btn");
+    const input1 = document.getElementById("input1-btn");
+    const input2 = document.getElementById("input2-btn");
+    const convOutput = document.getElementById("outputConv");
+    if (calculateBtn){
+        selectEl.addEventListener('ionChange', () => {
+      calcUI.classList.remove("hidden");
+      input1.value = "";
+      input2.value = "";
+      convOutput.value = "";
+      switch (selectEl.value.id) {
+          case 1:
+              input1.placeholder = "Wartość W";
+              input2.placeholder = "Skuteczność";
+              break;
+          case 2:
+              input1.placeholder = "Wartość Lm";
+              input2.placeholder = "Skuteczność";
+              break;
+          case 3:
+              input1.placeholder = "Wartość Lm";
+              input2.placeholder = "Wartość m2";
+              break;
+      }
+    });
+    }
+    if (calculateBtn) {
+        calculateBtn.addEventListener("click", () => {
+      let val1 = parseFloat(input1.value);
+      let val2 = parseFloat(input2.value);
+      let res = 0;
+      switch (selectEl.value.id) {
+          case 1:
+              res = val1 * val2;
+              convOutput.value = res + " Lm";
+              break;
+          case 2:
+              res = val1 / val2;
+              convOutput.value = res.toFixed(2) + " W";
+              break;
+          case 3: 
+              res = val1 / val2;
+              convOutput.value = res.toFixed(2) + " Lx";
+              break;
+      }
+    });
+    }
+
+    renderGallery();
+};
+
 function resetQuizButtonsClasslist() {
     document.querySelectorAll('[data-odpowiedz]').forEach(btn => {
         btn.classList.remove("poprawna");
@@ -286,15 +271,12 @@ function displayQuestions(inddex) {
     });
 }
 
-function openCamera() {
-    const input = document.getElementById("cameraInput");
-    if (input) input.click();
-}
 
 function renderGallery() {
     const galleryContainer = document.getElementById("gallery-container");
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("modal-image");
+    
     let arr = JSON.parse(localStorage.getItem("savedArrWithImages")) || [];
 
     if (!galleryContainer) return;
@@ -316,7 +298,8 @@ function renderGallery() {
         galleryContainer.appendChild(imgElement);
     });
 }
-// symulator barwy swiatla
+
+// SYMULATOR BARWY ŚWIATŁA
 const kelvinSlider = document.getElementById('kelvin-slider');
 const cssBulb = document.getElementById('css-bulb');
 const kelvinDisplay = document.getElementById('kelvin-display');
@@ -360,7 +343,130 @@ if (kelvinSlider) {
     kelvinSlider.addEventListener('ionInput', (e) => {
         updateLightColor(e.target.value);
     });
-    
-
     updateLightColor(kelvinSlider.value || 4000);
 }
+// CAPACITOR CAMERA
+window.openCamera = async function() {
+    try {
+        const image = await Capacitor.Plugins.Camera.getPhoto({
+            quality: 60,
+            allowEditing: false,
+            resultType: 'dataUrl', 
+            source: 'CAMERA'
+        });
+
+        const base64Image = image.dataUrl;
+
+        const preview = document.getElementById('preview');
+        if (preview) {
+            preview.src = base64Image;
+        }
+
+        saveImageToStorageCapacitor(base64Image);
+
+    } catch (error) {
+        console.log("Aparat został zamknięty lub wystąpił błąd: ", error);
+    }
+};
+
+function saveImageToStorageCapacitor(base64String) {
+    let savedImages = JSON.parse(localStorage.getItem('savedArrWithImages')) || [];
+    savedImages.unshift(base64String);
+    
+    try {
+        localStorage.setItem('savedArrWithImages', JSON.stringify(savedImages));
+        console.log("Zdjęcie z Capacitora zapisane z sukcesem!");
+        
+        if (typeof renderGallery === "function") {
+            renderGallery();
+        }
+    } catch (e) {
+        alert("Błąd: Pamięć LocalStorage jest pełna! Usuń stare zdjęcia z galerii.");
+    }
+}
+// GOOGLE MAP API 
+const mapElement = document.getElementById('mapa');
+
+if (mapElement) {
+    async function initMap() {
+        try {
+            const { GoogleMap } = Capacitor.Plugins;
+
+            const map = await GoogleMap.create({
+                id: 'moja-mapa',
+                element: mapElement,
+                apiKey: 'AIzaSyDUxf6Cr0m6MoMxEdvwhdkVol8VbQLJbs0', 
+                config: {
+                    center: { lat: 53.1235, lng: 18.0084 },
+                    zoom: 12,
+                },
+            });
+            console.log("Mapa została załadowana pomyślnie pod spodem aplikacji!");
+        } catch (error) {
+            console.error("Błąd ładowania mapy: ", error);
+        }
+    }
+    initMap();
+}
+window.initMap = function() {
+    const mapElement = document.getElementById('mapa');
+    
+    if (mapElement) {
+        const map = new google.maps.Map(mapElement, {
+            center: { lat: 52.4064, lng: 16.9252 }, 
+            zoom: 11,
+            styles: [
+                {
+                    featureType: "poi.business",
+                    elementType: "labels",
+                    stylers: [{ visibility: "off" }]
+                }
+            ]
+        });
+    
+        const punktyUtylizacji = [
+            {
+                name: "Gratowisko Poznań Dębiec (Wilda)",
+                address: "ul. 28 Czerwca 1956 r. 284, Poznań",
+                lat: 52.3748103,
+                lng: 16.9043910
+            },
+            {
+                name: "Gratowisko Poznań Wschód",
+                address: "ul. Wrzesińska 12, Poznań",
+                lat: 52.4191289,
+                lng: 16.9790521
+            },
+            {
+                name: "Gratowisko Morasko",
+                address: "ul. Meteorytowa 1, Suchy Las",
+                lat: 52.4972932,
+                lng: 16.8922553
+            }
+        ];
+
+        punktyUtylizacji.forEach(punkt => {
+
+            const marker = new google.maps.Marker({
+                position: { lat: punkt.lat, lng: punkt.lng },
+                map: map,
+                title: punkt.name
+            });
+
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div style="color: black; padding: 5px;">
+                        <h3 style="margin: 0 0 5px 0; color: #2dd36f;">${punkt.name}</h3>
+                        <p style="margin: 0 0 5px 0;"><strong>Adres:</strong> ${punkt.address}</p>
+                        <p style="margin: 0; font-size: 12px;">♻️ Punkt przyjmuje zużyte żarówki LED i elektrośmieci.</p>
+                    </div>
+                `
+            });
+            marker.addListener("click", () => {
+                infoWindow.open(map, marker);
+            });
+        });
+        
+        console.log("Mapa Poznania z punktami Gratowisko załadowana!");
+    }
+};

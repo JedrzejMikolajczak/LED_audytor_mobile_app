@@ -272,3 +272,8 @@ ion-button{
   --padding-start: 15px;
   --padding-top:10px;
 }
+capacitor-google-map {
+  display: inline-block;
+  width: 275px;
+  height: 400px;
+}

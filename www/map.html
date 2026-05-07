@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Audytor LED - Kamera</title>
+    <title>Audytor LED - Mapa</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
     <link rel="stylesheet" href="style.css">
@@ -29,7 +29,7 @@
                     <ion-item button href="game.html"><ion-icon name="game-controller" slot="start"></ion-icon>Mini-gra</ion-item>
                     <ion-item button href="led_simulator.html"><ion-icon name="bulb" slot="start"></ion-icon>Symulator Barwy Swiatla</ion-item>
                     <ion-item button href="unit-conv.html"><ion-icon name="apps" slot="start"></ion-icon>Kalkulator Jednostek</ion-item>
-                    <ion-item button href="#"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
+                    <ion-item button href="map.html"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
                     <ion-item button href="about.html"><ion-icon name="person" slot="start"></ion-icon>O autorze</ion-item>
                     <ion-item button href="#"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
                 </ion-list>
@@ -50,16 +50,13 @@
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding">
-               <ion-button expand="block" onclick="openCamera()">
-                   📷 Zrób zdjęcie
-               </ion-button>
-
-               <img id="preview" style="margin-top:20px; width:100%; border-radius:10px;">
+            <ion-content class="ion-padding" style="--background: transparent;">
+                <div id="mapa" style="width: 100%; height: 500px; background: transparent; border: 2px solid red; border-radius: 10px;"></div>
             </ion-content>
         </div>
 
     </ion-app>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUxf6Cr0m6MoMxEdvwhdkVol8VbQLJbs0&callback=initMap"></script>
     <script src="app.js"></script>
 </body>
 </html>
