@@ -30,7 +30,7 @@
                 <ion-item button href="unit-conv.html"><ion-icon name="apps" slot="start"></ion-icon>Kalkulator Jednostek</ion-item>
                 <ion-item button href="map.html"><ion-icon name="map" slot="start"></ion-icon>Utylizacja</ion-item>
                 <ion-item button href="about.html"><ion-icon name="person" slot="start"></ion-icon>O autorze</ion-item>
-                <ion-item button href="#"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
+                <ion-item button href="settings.html"><ion-icon name="settings" slot="start"></ion-icon>Ustawienia</ion-item>
             </ion-list>
         </ion-content>
     </ion-menu>
@@ -46,7 +46,7 @@
         </ion-header>
         <ion-content class="ion-padding" style="display: flex; align-items: center;">
     
-    <h1 style="color: var(--ion-color-primary); margin-top: 50px; text-align: center;">Witaj w Audytorze!</h1>
+    <h1 style="color: var(--ion-text-color); margin-top: 50px; text-align: center;">Witaj w Audytorze!</h1>
     <p style="color: #666; margin-bottom: 50px;text-align: center;">Zoptymalizuj zużycie energii i zacznij oszczędzać.</p>
 
     <canvas id="startCanvas" width="300" height="250"></canvas>
@@ -59,7 +59,7 @@
 </ion-content>
     </div>
 </ion-app>
- 
+        <script src="app.js"></script>
     <script>
         window.onload = () => {
             const canvas = document.getElementById('startCanvas');
@@ -127,5 +127,6 @@
             drawAnimation();
         };
     </script>
+
 </body>
 </html>

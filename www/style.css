@@ -277,3 +277,25 @@ capacitor-google-map {
   width: 275px;
   height: 400px;
 }
+.settings-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* dark theme */
+.dark-theme {
+  --ion-color-primary: #293d5e;
+  --ion-background-color: #303f4b;
+  --ion-text-color: #e6eef6;
+  background: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
+.dark-theme ion-card {
+  background: #0f1724;
+  color: var(--ion-text-color);
+}
+.dark-theme ion-menu ion-item {
+  --color: #cbd5e1;
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Audytor LED - Mapa</title>
+    <title>Audytor LED - Galeria</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
     <link rel="stylesheet" href="style.css">
@@ -17,7 +17,7 @@
         <ion-menu content-id="main-content" type="overlay">
             <ion-header>
                 <ion-toolbar color="primary">
-                    <ion-title>Menu Audytora</ion-title>
+                    <ion-title>Ustawienia</ion-title>
                 </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -42,7 +42,7 @@
                     <ion-buttons slot="start">
                         <ion-menu-button></ion-menu-button>
                     </ion-buttons>
-                    <ion-title>Kamera</ion-title>
+                    <ion-title>Ustawienia</ion-title>
                     <ion-buttons slot="end">
                         <ion-button href="index.html">
                             <ion-icon slot="icon-only" name="home"></ion-icon>
@@ -50,13 +50,30 @@
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding" style="--background: transparent;">
-                <div id="mapa" style="width: 100%; height: 500px; background: transparent; border: 2px solid red; border-radius: 10px;"></div>
+            <ion-content class="ion-padding">
+                <div class="settings-content">  
+                    <div class="settings-block" style="margin-top:50px; width:100%; max-width:420px;">
+                        <ion-item lines="full">
+                            <ion-label>Tryb ciemny</ion-label>
+                            <ion-toggle id="darkModeToggle"></ion-toggle>
+                        </ion-item>
+
+                        <ion-button id="saveSettingsBtn" expand="block" style="margin-top:50px;">Zapisz ustawienia</ion-button>
+
+                        <ion-item lines="none">
+                            <ion-button id="clearGalleryBtn" style="margin-top:50px; margin-inline: auto;" color="danger" expand="block">Wyczyść galerię</ion-button>
+                        </ion-item>
+                    </div>
+                </div>
+                
             </ion-content>
         </div>
 
     </ion-app>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUxf6Cr0m6MoMxEdvwhdkVol8VbQLJbs0&callback=initMap"></script>
     <script src="app.js"></script>
+    <div id="image-modal" class="modal-hidden">
+    <span id="close-modal">&times;</span>
+    <img id="modal-image" src="">
+</div>
 </body>
 </html>

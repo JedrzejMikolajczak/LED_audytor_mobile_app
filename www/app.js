@@ -187,6 +187,66 @@ window.onload = () => {
     renderGallery();
 };
 
+/* --- SETTINGS: save/load, dark mode, clear/export/import --- */
+
+function loadSettings() {
+    const settings = JSON.parse(localStorage.getItem('appSettings')) || {};
+    const darkToggle = document.getElementById('darkModeToggle');
+    const defaultPrice = document.getElementById('defaultPrice');
+    const defaultEfficacy = document.getElementById('defaultEfficacy');
+
+    if (darkToggle) darkToggle.checked = !!settings.darkMode;
+    if (defaultPrice && settings.defaultPrice !== undefined) defaultPrice.value = settings.defaultPrice;
+    if (defaultEfficacy && settings.defaultEfficacy !== undefined) defaultEfficacy.value = settings.defaultEfficacy;
+
+    applyDarkMode(!!settings.darkMode);
+}
+
+function saveSettings() {
+    const darkToggle = document.getElementById('darkModeToggle');
+    const defaultPrice = document.getElementById('defaultPrice');
+    const defaultEfficacy = document.getElementById('defaultEfficacy');
+
+    const settings = {
+        darkMode: darkToggle ? darkToggle.checked : false,
+        defaultPrice: defaultPrice ? parseFloat(defaultPrice.value) || null : null,
+        defaultEfficacy: defaultEfficacy ? parseFloat(defaultEfficacy.value) || null : null
+    };
+    localStorage.setItem('appSettings', JSON.stringify(settings));
+    if (settings.defaultPrice && document.getElementById('price')) {
+        document.getElementById('price').value = settings.defaultPrice;
+    }
+    alert('Ustawienia zapisane');
+}
+
+function applyDarkMode(enabled) {
+    if (enabled) {
+        document.documentElement.classList.add('dark-theme');
+    } else {
+        document.documentElement.classList.remove('dark-theme');
+    }
+}
+
+function clearGallery() {
+    localStorage.removeItem('savedArrWithImages');
+    renderGallery();
+    alert('Galeria wyczyszczona');
+}
+
+/* PODPIĘCIE EVENTÓW (jeśli elementy istnieją) */
+document.addEventListener('DOMContentLoaded', () => {
+    const saveBtn = document.getElementById('saveSettingsBtn');
+    const clearGalleryBtn = document.getElementById('clearGalleryBtn');
+    const darkToggle = document.getElementById('darkModeToggle');
+
+    if (saveBtn) saveBtn.addEventListener('click', saveSettings);
+    if (clearGalleryBtn) clearGalleryBtn.addEventListener('click', clearGallery);
+    if (darkToggle) darkToggle.addEventListener('ionChange', (e) => {
+        applyDarkMode(e.target.checked);
+    });
+    loadSettings();
+});
+
 function resetQuizButtonsClasslist() {
     document.querySelectorAll('[data-odpowiedz]').forEach(btn => {
         btn.classList.remove("poprawna");
