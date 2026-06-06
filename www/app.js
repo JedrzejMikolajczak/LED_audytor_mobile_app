@@ -55,6 +55,7 @@ window.onload = () => {
     document.querySelectorAll('[data-odpowiedz]').forEach(btn => {
         btn.addEventListener('click', () => {
             const wszystkiePrzyciski = document.querySelectorAll('[data-odpowiedz]');
+            wskickPrzyciski = document.querySelectorAll('[data-odpowiedz]');
             wszystkiePrzyciski.forEach(b => b.disabled = true);
 
             const selectedAns = btn.textContent.slice(0, 1);
@@ -94,6 +95,7 @@ window.onload = () => {
 
     const modal = document.getElementById("image-modal");
     const closeModal = document.getElementById("close-modal");
+    const modalImg = document.getElementById("modal-image");
 
     if (closeModal && modal) {
         closeModal.addEventListener("click", function() {
@@ -109,30 +111,55 @@ window.onload = () => {
         });
     }
 
+    // ==========================================
+    // DODANE: OBSŁUGA USUWANIA ZDJĘCIA (KOSZ)
+    // ==========================================
+    const deleteBtn = document.getElementById("delete-image-btn");
+
+    if (deleteBtn && modalImg && modal) {
+        deleteBtn.addEventListener("click", function(e) {
+            e.stopPropagation(); // Zapobiega zamknięciu modalu przez kliknięcie w tło
+
+            const indexToRemove = modalImg.dataset.index;
+            
+            if (indexToRemove !== undefined && indexToRemove !== null) {
+                const potwierdzenie = confirm("Czy chcesz trwale usunąć to zdjęcie z audytu?");
+                
+                if (potwierdzenie) {
+                    let arr = JSON.parse(localStorage.getItem("savedArrWithImages")) || [];
+                    
+                    // Usuwamy wybrane zdjęcie z tablicy
+                    arr.splice(Number(indexToRemove), 1);
+                    
+                    // Zapisujemy nową tablicę w localStorage
+                    localStorage.setItem("savedArrWithImages", JSON.stringify(arr));
+                    
+                    // Zamykamy modal
+                    modal.classList.add("modal-hidden");
+                    modal.classList.remove("modal-visible");
+                    
+                    // Odświeżamy galerię na ekranie
+                    renderGallery();
+                }
+            }
+        });
+    }
+
     // przeliczanie jednostek
     const options = [
-    {
-        id: 1,
-        name: 'W -> Lm',
-    },
-    {
-        id: 2,
-        name: 'Lm -> W',
-    },
-    {
-        id: 3,
-        name: 'Lm & m2 -> Lx',
-    },
+        { id: 1, name: 'W -> Lm' },
+        { id: 2, name: 'Lm -> W' },
+        { id: 3, name: 'Lm & m2 -> Lx' }
     ];
 
     const selectEl = document.querySelector('ion-select');
     if (selectEl){
         options.forEach((option, i) => {
-        const selectOption = document.createElement('ion-select-option');
-        selectOption.value = option;
-        selectOption.textContent = option.name;
-        selectEl.appendChild(selectOption);
-    });  
+            const selectOption = document.createElement('ion-select-option');
+            selectOption.value = option;
+            selectOption.textContent = option.name;
+            selectEl.appendChild(selectOption);
+        });  
     }
 
     const calcUI = document.getElementById("calc-ui");
@@ -142,46 +169,46 @@ window.onload = () => {
     const convOutput = document.getElementById("outputConv");
     if (calculateBtn){
         selectEl.addEventListener('ionChange', () => {
-      calcUI.classList.remove("hidden");
-      input1.value = "";
-      input2.value = "";
-      convOutput.value = "";
-      switch (selectEl.value.id) {
-          case 1:
-              input1.placeholder = "Wartość W";
-              input2.placeholder = "Skuteczność";
-              break;
-          case 2:
-              input1.placeholder = "Wartość Lm";
-              input2.placeholder = "Skuteczność";
-              break;
-          case 3:
-              input1.placeholder = "Wartość Lm";
-              input2.placeholder = "Wartość m2";
-              break;
-      }
-    });
+            calcUI.classList.remove("hidden");
+            input1.value = "";
+            input2.value = "";
+            convOutput.value = "";
+            switch (selectEl.value.id) {
+                case 1:
+                    input1.placeholder = "Wartość W";
+                    input2.placeholder = "Skuteczność";
+                    break;
+                case 2:
+                    input1.placeholder = "Wartość Lm";
+                    input2.placeholder = "Skuteczność";
+                    break;
+                case 3:
+                    input1.placeholder = "Wartość Lm";
+                    input2.placeholder = "Wartość m2";
+                    break;
+            }
+        });
     }
     if (calculateBtn) {
         calculateBtn.addEventListener("click", () => {
-      let val1 = parseFloat(input1.value);
-      let val2 = parseFloat(input2.value);
-      let res = 0;
-      switch (selectEl.value.id) {
-          case 1:
-              res = val1 * val2;
-              convOutput.value = res + " Lm";
-              break;
-          case 2:
-              res = val1 / val2;
-              convOutput.value = res.toFixed(2) + " W";
-              break;
-          case 3: 
-              res = val1 / val2;
-              convOutput.value = res.toFixed(2) + " Lx";
-              break;
-      }
-    });
+            let val1 = parseFloat(input1.value);
+            let val2 = parseFloat(input2.value);
+            let res = 0;
+            switch (selectEl.value.id) {
+                case 1:
+                    res = val1 * val2;
+                    convOutput.value = res + " Lm";
+                    break;
+                case 2:
+                    res = val1 / val2;
+                    convOutput.value = res.toFixed(2) + " W";
+                    break;
+                case 3: 
+                    res = val1 / val2;
+                    convOutput.value = res.toFixed(2) + " Lx";
+                    break;
+            }
+        });
     }
 
     renderGallery();
@@ -233,7 +260,6 @@ function clearGallery() {
     alert('Galeria wyczyszczona');
 }
 
-/* PODPIĘCIE EVENTÓW (jeśli elementy istnieją) */
 document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('saveSettingsBtn');
     const clearGalleryBtn = document.getElementById('clearGalleryBtn');
@@ -310,9 +336,7 @@ function drawChart(oldCost, newCost) {
                 }]
             },
             options: {
-                scales: {
-                    y: { beginAtZero: true }
-                }
+                scales: { y: { beginAtZero: true } }
             }
         });
     }
@@ -331,7 +355,9 @@ function displayQuestions(inddex) {
     });
 }
 
-
+// ==========================================
+// POPRAWIONE: PRZEKAZYWANIE INDEKSU DO MODALU
+// ==========================================
 function renderGallery() {
     const galleryContainer = document.getElementById("gallery-container");
     const modal = document.getElementById("image-modal");
@@ -343,13 +369,15 @@ function renderGallery() {
 
     galleryContainer.innerHTML = "";
 
-    arr.forEach(function(imageData) {
+    // Dodany parametr index do pętli
+    arr.forEach(function(imageData, index) {
         const imgElement = document.createElement("img");
         imgElement.src = imageData;
         
         imgElement.addEventListener("click", function() {
             if (modalImg && modal) {
                 modalImg.src = this.src; 
+                modalImg.dataset.index = index; // Ta linijka łączy kosz z konkretnym zdjęciem!
                 modal.classList.remove("modal-hidden");
                 modal.classList.add("modal-visible");
             }
@@ -359,7 +387,6 @@ function renderGallery() {
     });
 }
 
-// SYMULATOR BARWY ŚWIATŁA
 const kelvinSlider = document.getElementById('kelvin-slider');
 const cssBulb = document.getElementById('css-bulb');
 const kelvinDisplay = document.getElementById('kelvin-display');
@@ -367,8 +394,6 @@ const kelvinDescription = document.getElementById('kelvin-description');
 
 function updateLightColor(kelvin) {
     let r, g, b;
-    let description = "";
-
     if (kelvin < 3300) {
         r = 255;
         g = 214 + ((kelvin - 2700) / 600) * 30; 
@@ -388,7 +413,6 @@ function updateLightColor(kelvin) {
     const bInt = Math.round(b);
 
     if(kelvinDisplay) kelvinDisplay.innerText = `${kelvin} K`;
-    if(kelvinDescription) kelvinDescription.innerText = description;
     
     if (cssBulb) {
         cssBulb.style.backgroundColor = `rgb(${rInt}, ${gInt}, ${bInt})`;
@@ -405,7 +429,7 @@ if (kelvinSlider) {
     });
     updateLightColor(kelvinSlider.value || 4000);
 }
-// CAPACITOR CAMERA
+
 window.openCamera = async function() {
     try {
         const image = await Capacitor.Plugins.Camera.getPhoto({
@@ -435,8 +459,6 @@ function saveImageToStorageCapacitor(base64String) {
     
     try {
         localStorage.setItem('savedArrWithImages', JSON.stringify(savedImages));
-        console.log("Zdjęcie z Capacitora zapisane z sukcesem!");
-        
         if (typeof renderGallery === "function") {
             renderGallery();
         }
@@ -444,30 +466,7 @@ function saveImageToStorageCapacitor(base64String) {
         alert("Błąd: Pamięć LocalStorage jest pełna! Usuń stare zdjęcia z galerii.");
     }
 }
-// GOOGLE MAP API 
-const mapElement = document.getElementById('mapa');
 
-if (mapElement) {
-    async function initMap() {
-        try {
-            const { GoogleMap } = Capacitor.Plugins;
-
-            const map = await GoogleMap.create({
-                id: 'moja-mapa',
-                element: mapElement,
-                apiKey: 'AIzaSyDUxf6Cr0m6MoMxEdvwhdkVol8VbQLJbs0', 
-                config: {
-                    center: { lat: 53.1235, lng: 18.0084 },
-                    zoom: 12,
-                },
-            });
-            console.log("Mapa została załadowana pomyślnie pod spodem aplikacji!");
-        } catch (error) {
-            console.error("Błąd ładowania mapy: ", error);
-        }
-    }
-    initMap();
-}
 window.initMap = function() {
     const mapElement = document.getElementById('mapa');
     
@@ -506,7 +505,6 @@ window.initMap = function() {
         ];
 
         punktyUtylizacji.forEach(punkt => {
-
             const marker = new google.maps.Marker({
                 position: { lat: punkt.lat, lng: punkt.lng },
                 map: map,
@@ -518,7 +516,7 @@ window.initMap = function() {
                     <div style="color: black; padding: 5px;">
                         <h3 style="margin: 0 0 5px 0; color: #2dd36f;">${punkt.name}</h3>
                         <p style="margin: 0 0 5px 0;"><strong>Adres:</strong> ${punkt.address}</p>
-                        <p style="margin: 0; font-size: 12px;">♻️ Punkt przyjmuje zużyte żarówki LED i elektrośmieci.</p>
+                        <p style="margin: 0; font-size: 12px;">♻️ Pt. przyjmuje zużyte żarówki LED i elektrośmieci.</p>
                     </div>
                 `
             });
@@ -526,7 +524,5 @@ window.initMap = function() {
                 infoWindow.open(map, marker);
             });
         });
-        
-        console.log("Mapa Poznania z punktami Gratowisko załadowana!");
     }
 };

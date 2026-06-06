@@ -299,3 +299,17 @@ capacitor-google-map {
 .dark-theme ion-menu ion-item {
   --color: #cbd5e1;
 }
+#delete-image-btn {
+    position: absolute;
+    top: 45px;
+    left: 25px;
+    color: #ff4961; 
+    font-size: 35px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+
+#delete-image-btn:active {
+    transform: scale(0.9);
+}
